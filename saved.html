@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bushra - Saved Summaries</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .summary {
+      background: white;
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .summary h3 {
+      margin: 0 0 10px 0;
+    }
+    .summary p {
+      margin: 10px 0;
+    }
+    .summary button {
+      background-color: #f44336;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    .summary button:hover {
+      background-color: #d32f2f;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Saved Summaries</h1>
+    <p>Manage your saved lecture summaries</p>
+  </header>
+  <main>
+    <div id="summariesContainer">
+      <!-- Saved summaries will be loaded here -->
+    </div>
+    <button onclick="goBack()">Back to Upload</button>
+  </main>
+  <script>
+    // Load saved summaries from localStorage
+    function loadSummaries() {
+      const summariesContainer = document.getElementById('summariesContainer');
+      const savedSummaries = JSON.parse(localStorage.getItem('savedSummaries') || '[]');
+
+      if (savedSummaries.length === 0) {
+        summariesContainer.innerHTML = '<p>No summaries saved yet.</p>';
+        return;
+      }
+
+      summariesContainer.innerHTML = '';
+      savedSummaries.forEach((summary, index) => {
+        const summaryDiv = document.createElement('div');
+        summaryDiv.className = 'summary';
+        summaryDiv.innerHTML = `
+          <h3>Summary ${index + 1}</h3>
+          <p><strong>Date:</strong> ${summary.date}</p>
+          <p>${summary.content}</p>
+          <button onclick="deleteSummary(${index})">Delete</button>
+        `;
+        summariesContainer.appendChild(summaryDiv);
+      });
+    }
+
+    // Delete a summary
+    function deleteSummary(index) {
+      let savedSummaries = JSON.parse(localStorage.getItem('savedSummaries') || '[]');
+      savedSummaries.splice(index, 1);
+      localStorage.setItem('savedSummaries', JSON.stringify(savedSummaries));
+      loadSummaries();
+    }
+
+    // Navigate back to the upload page
+    function goBack() {
+      window.location.href = 'index.html';
+    }
+
+    // Load summaries on page load
+    window.onload = loadSummaries;
+  </script>
+</body>
+</html>
