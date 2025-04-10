@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bushra - Upload Lecture</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+      text-align: center;
+    }
+    input[type="file"] {
+      display: block;
+      margin: 20px auto;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Bushra</h1>
+    <p>Your smart lecture summarizer</p>
+  </header>
+  <main>
+    <h2>Upload your lecture</h2>
+    <form id="uploadForm">
+      <input type="file" id="lectureFile" accept=".txt,.pdf" required>
+      <button type="button" onclick="uploadFile()">Upload</button>
+    </form>
+    <p id="statusMessage"></p>
+  </main>
+  <script>
+    function uploadFile() {
+      const fileInput = document.getElementById('lectureFile');
+      const statusMessage = document.getElementById('statusMessage');
+
+      if (fileInput.files.length === 0) {
+        statusMessage.textContent = 'Please select a file to upload.';
+        statusMessage.style.color = 'red';
+        return;
+      }
+
+      const file = fileInput.files[0];
+      statusMessage.textContent = `Uploading ${file.name}...`;
+      statusMessage.style.color = 'black';
+
+      // Simulate file upload and redirection to summary page
+      setTimeout(() => {
+        statusMessage.textContent = 'File uploaded successfully!';
+        statusMessage.style.color = 'green';
+        window.location.href = 'summary.html'; // Redirect to summary page
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
