@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bushra - Summary</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    textarea {
+      width: 100%;
+      height: 300px;
+      margin: 20px 0;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      resize: none;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Lecture Summary</h1>
+    <p>Here is the summarized lecture content</p>
+  </header>
+  <main>
+    <h2>Summary</h2>
+    <textarea id="summaryText" readonly></textarea>
+    <button onclick="saveSummary()">Save Summary</button>
+    <button onclick="goBack()">Upload Another</button>
+  </main>
+  <script>
+    // Load the summary from a simulated API or previous step
+    document.getElementById('summaryText').value = localStorage.getItem('lectureSummary') || 'No summary available.';
+    
+    function saveSummary() {
+      const summary = document.getElementById('summaryText').value;
+      if (summary.trim()) {
+        let savedSummaries = JSON.parse(localStorage.getItem('savedSummaries') || '[]');
+        savedSummaries.push({ date: new Date().toLocaleString(), content: summary });
+        localStorage.setItem('savedSummaries', JSON.stringify(savedSummaries));
+        alert('Summary saved successfully!');
+      } else {
+        alert('There is no summary to save.');
+      }
+    }
+
+    function goBack() {
+      window.location.href = 'index.html'; // Redirect to the upload page
+    }
+  </script>
+</body>
+</html>
